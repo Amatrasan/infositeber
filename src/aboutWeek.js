@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // import { Link, animateScroll as scroll } from "react-scroll";
 // import chartohtml from 'htmlspecialchars';
-import dataJson from '../data.json';
+import dataJson from './data.json';
 import './aboutWeek.css';
 
 const AboutWeekS = (props) => {

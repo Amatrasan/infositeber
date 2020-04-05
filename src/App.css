@@ -474,6 +474,17 @@ html {
 .edit_calc_change_metod_calc__text{
   font-size: 1rem;
 }
+.selected_grid_option3{
+  display: grid;
+  grid-template-columns: 30% 60%;
+  column-gap: 10%;
+}
+.option3_week{
+  background-color: #e43c83;
+    text-align: center;
+    border-radius: 3vh;
+    font-size: 2rem;
+}
 @keyframes load {
   from {
       transform: rotate(0deg);

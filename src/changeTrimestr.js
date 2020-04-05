@@ -66,6 +66,8 @@ const [dayMes, setDayMes] = useState(0);
 const [monthMes, setMonthMes] = useState(0);
 const [yearMes, setYearMes] = useState(0);
 const [weekMes, setWeekMes] = useState(0);
+
+const [weekOption, setWeekOption] = useState(1);
 const backToEditCalc = () => {
     let doc = document.getElementById('edit_calc');
     let enddoc = document.getElementById('show_results');
@@ -80,29 +82,49 @@ const calculation = method => {
     setTimeout(() => {loading.style.display = 'none';}, 1000);
     setTimeout(() => {enddoc.style.display = 'block';}, 1000);
     doc.style.display = 'none';
-   let g = new Date(selectedYearState, selectedMonthState, selectedDayState);
-   let x = dateFns.addDays(g, -90+5);
-   x = dateFns.addYears(x, 1);
-   setDayMes(x.getDate())
-   setMonthMes(x.getMonth());
-   setYearMes(x.getFullYear());
-   function diff_weeks(dt2, dt1) 
-   {
-    var diff =(dt2.getTime() - dt1.getTime()) / 1000;
-    diff /= (60 * 60 * 24 * 7);
-    return Math.abs(Math.round(diff));
-   }
-   let ww = diff_weeks(g, new Date());
-    setWeekMes(ww);
     if (method === 'option1'){
-        console.log()
+        let g = new Date(selectedYearState, selectedMonthState, selectedDayState);
+        let x = dateFns.addDays(g, -90+5);
+        x = dateFns.addYears(x, 1);
+        setDayMes(x.getDate())
+        setMonthMes(x.getMonth());
+        setYearMes(x.getFullYear());
+        function diff_weeks(dt2, dt1) 
+        {
+        var diff =(dt2.getTime() - dt1.getTime()) / 1000;
+        diff /= (60 * 60 * 24 * 7);
+        return Math.abs(Math.round(diff));
+        }
+        let ww = diff_weeks(g, new Date());
+        setWeekMes(ww);
+    }
+    if (method === 'option3'){
+        setWeekMes(weekOption);
+        let g = new Date();
+        let countNedel = 41 - weekOption;
+       // let x = dateFns.addMonths(g, 9);
+        let x = dateFns.addWeeks(g, countNedel);
+        x = dateFns.addDays(x, -2);
+        setDayMes(x.getDate());
+        setMonthMes(x.getMonth());
+        setYearMes(x.getFullYear());
+    }
+    if (method === 'option2'){
+        let g = new Date(selectedYearState, selectedMonthState, selectedDayState);
+        let x = dateFns.addDays(g, 266);
+        setDayMes(x.getDate());
+        setMonthMes(x.getMonth());
+        setYearMes(x.getFullYear());
+        function diff_weeks(dt2, dt1) 
+        {
+        var diff =(dt2.getTime() - dt1.getTime()) / 1000;
+        diff /= (60 * 60 * 24 * 7);
+        return Math.abs(Math.round(diff));
+        }
+        let ww = diff_weeks(g, new Date());
+        setWeekMes(ww);
     }
 }
-    useEffect(() => {
-        console.log()
-    }, [optionState])
-// <input type="radio" value="option1" onChange={() => setOption('option3')} checked={optionState === 'option3'} />
-
   return (
           <div id="trim">
             <div className="site_name">PregnancyHelper</div>
@@ -178,6 +200,57 @@ const calculation = method => {
                             >
                                 {optionShow(1144, 2200)}
                             </select>
+                        </div>
+                        <div className="flex_for_button">
+                        <button className="button_calculation" onClick={() => calculation(optionState)}>Рассчитать</button>
+                        </div>
+                    </>
+                    ) : <></> }
+                    { optionState === 'option2' ? (
+                        <>
+                        <div className="selected_grid">
+                            <select
+                            value={selectedDayState}
+                            onChange={(e) => setDay(e.target.value)}
+                            className="select_day"
+                            id="paymentMethod"
+                            >
+                                {optionShow(1, 31)}
+                            </select>
+                            <select
+                            value={selectedMonthState}
+                            onChange={(e) => setMonth(e.target.value)}
+                            className="select_day"
+                            id="paymentMethod"
+                            >
+                                {optionShowMonth()}
+                            </select>
+                            <select
+                            value={selectedYearState}
+                            onChange={(e) => setYear(e.target.value)}
+                            className="select_day"
+                            id="paymentMethod"
+                            >
+                                {optionShow(1144, 2200)}
+                            </select>
+                        </div>
+                        <div className="flex_for_button">
+                        <button className="button_calculation" onClick={() => calculation(optionState)}>Рассчитать</button>
+                        </div>
+                    </>
+                    ) : <></> }
+                    { optionState === 'option3' ? (
+                        <>
+                        <div className="selected_grid_option3">
+                            <select
+                            value={weekOption}
+                            onChange={(e) => setWeekOption(e.target.value)}
+                            className="select_day"
+                            id="paymentMethod"
+                            >
+                                {optionShow(1, 41)}
+                            </select>
+                            <div className="option3_week">Неделя</div>
                         </div>
                         <div className="flex_for_button">
                         <button className="button_calculation" onClick={() => calculation(optionState)}>Рассчитать</button>
