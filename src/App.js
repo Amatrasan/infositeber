@@ -3,6 +3,7 @@ import { useClearCache } from "react-clear-cache";
 import ChangeWeek from './changeWeek';
 import ChangeTrimestr from './changeTrimestr';
 import AboutWeek from './aboutWeek';
+import axios from 'axios';
 import './App.css';
 
 const App = () => {
@@ -13,7 +14,6 @@ const App = () => {
   const [openWeek, setOpenWeek] = useState(false);
   const [openAboutWeek, setOpenAboutWeek] = useState(false);
   const [open, setOpen] = useState(false);
-
   const TrimeestrChange = (i) => {
     setTrimestr(i);
     if (trimestrState >= 0 && trimestrState <= 2) {

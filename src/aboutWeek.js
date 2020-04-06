@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 // import { Link, animateScroll as scroll } from "react-scroll";
 // import chartohtml from 'htmlspecialchars';
 import dataJson from './data.json';
@@ -7,8 +8,11 @@ import './aboutWeek.css';
 const AboutWeekS = (props) => {
     const [data, setData] = useState(dataJson);
     useEffect(() => {
-        console.log('Загрузилась информация о неделе')
-        console.log(data.dataforweek[props.week]);
+        axios.get('/data.json').then(
+    (req, res) => { 
+        setData(req.data);
+        console.log(req.data); }
+    );
     }, [])
     //<Link activeClass="active" to={i} spy={true} smooth={true} offset={0} duration= {500}>{data.title}</Link>
 
