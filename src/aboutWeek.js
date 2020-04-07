@@ -10,8 +10,14 @@ const AboutWeekS = (props) => {
     const [fetched, setFetched] = useState(false);
     const [edit, setEdit] = useState(false);
     
-
     useEffect(() => {
+        if (window.location.pathname === '/edit') {
+            const password = 1111;
+            let submit = prompt('Введите пароль:');
+            if (submit == password) {
+                setEdit(true)
+            }
+        }
         axios.get('https://tranquil-plains-53916.herokuapp.com/')
         .then((req, res) => { 
             setData(req.data);
@@ -25,7 +31,6 @@ const AboutWeekS = (props) => {
 
     const toggleEdit = () => {
         if (edit) {
-
             console.log(data[props.week])
             const config = { headers: {'Content-Type': 'application/json'} };
             const url = `https://tranquil-plains-53916.herokuapp.com/api/edit/${data[props.week]._id}`
@@ -38,6 +43,17 @@ const AboutWeekS = (props) => {
                 });
             }
         setEdit(!edit)
+    }
+
+    const ShowButton = () => {
+        console.log(edit)
+        if (edit) {
+            return (
+                <button className="button_calculation" onClick={toggleEdit}>Сохранить</button>
+            )
+        }
+        return (<></>)
+         
     }
 
     const listHandler = event => {
@@ -226,7 +242,8 @@ const AboutWeekS = (props) => {
                 
                 {/* {ShowText()} */}
                 {EachText()}
-                <button className="button_calculation" onClick={toggleEdit}>Редактировать</button>
+                {ShowButton()}
+                <button className="button_calculation" onClick={toggleEdit}>Сохранить</button>
                 <div className="flex_for_button mobile_back">
                     <button className="button_calculation" onClick={props.backToWeek}>Назад</button>
                 </div>
