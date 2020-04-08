@@ -11,7 +11,7 @@ const AboutWeekS = (props) => {
     const [edit, setEdit] = useState(false);
     
     useEffect(() => {
-        if (window.location.pathname === '/edit') {
+        if (window.location.search === '?edit') {
             const password = 1111;
             let submit = prompt('Введите пароль:');
             if (submit == password) {
@@ -243,7 +243,7 @@ const AboutWeekS = (props) => {
                 {/* {ShowText()} */}
                 {EachText()}
                 {ShowButton()}
-                <button className="button_calculation" onClick={toggleEdit}>Сохранить</button>
+                
                 <div className="flex_for_button mobile_back">
                     <button className="button_calculation" onClick={props.backToWeek}>Назад</button>
                 </div>

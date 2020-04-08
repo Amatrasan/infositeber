@@ -22,6 +22,9 @@
     padding-bottom: 1rem;
     text-align: left;
 }
+.text_info_week > li{
+    text-indent: 0;
+}
 .bootom_img{
     padding-left: 2rem;
     padding-right: 2rem;
@@ -44,14 +47,14 @@
     margin-left: 2rem;
     margin-right: 2rem;
   }
-  .ul_about_week{
+ul{
     color: black;
-
-  }
-  .ul_about_week > li{
+}
+li{
     padding-left: 0;
     text-align: left;
-  }
+}
+
 @media only screen and (max-width: 1920px){
 
 }
