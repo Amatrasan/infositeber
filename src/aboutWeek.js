@@ -11,6 +11,7 @@ const AboutWeekS = (props) => {
     const [edit, setEdit] = useState(false);
     
     useEffect(() => {
+        // console.log(window.location.search)
         if (window.location.search === '?edit') {
             const password = 1111;
             let submit = prompt('Введите пароль:');
@@ -22,10 +23,18 @@ const AboutWeekS = (props) => {
         .then((req, res) => { 
             setData(req.data);
             setFetched(true)
-            // console.log(data);
+            let x = document.querySelectorAll("textarea");
+            let i;
+            for (i = 0; i < x.length; i++) {
+                x[i].style.cssText = 'height:auto; padding:0';
+                x[i].style.cssText = '-moz-box-sizing:content-box';
+                x[i].style.cssText = 'height:' + x[i].scrollHeight + 'px';
+            }
         }).catch((err) => {
             console.log(err)
         });
+
+        
     }, [])
     //<Link activeClass="active" to={i} spy={true} smooth={true} offset={0} duration= {500}>{data.title}</Link>
 
@@ -46,7 +55,7 @@ const AboutWeekS = (props) => {
     }
 
     const ShowButton = () => {
-        console.log(edit)
+        // console.log(edit)
         if (edit) {
             return (
                 <button className="button_calculation" onClick={toggleEdit}>Сохранить</button>
@@ -57,7 +66,7 @@ const AboutWeekS = (props) => {
     }
 
     const listHandler = event => {
-        let t = [...data]
+        let t = [...data]        
         if (event.target.name === 'delete') {
             for (var i=0, iLen=t[props.week].text.length; i<iLen; i++) {
                 if (t[props.week].text[i].type === 'list_ul') {
@@ -83,6 +92,14 @@ const AboutWeekS = (props) => {
     }
 
     const textAreaHandler = event => {
+
+        let el = event.target;
+        setTimeout(function(){
+            el.style.cssText = 'height:auto; padding:0';
+            // for box-sizing other than "content-box" use:
+            el.style.cssText = '-moz-box-sizing:content-box';
+            el.style.cssText = 'height:' + el.scrollHeight + 'px';
+          },0);
         
         let t = [...data]
         if (event.target.name === 'title') {
@@ -127,7 +144,7 @@ const AboutWeekS = (props) => {
             if (textdata.type === 'paragraph'){
                 if (edit) {
                     return(
-                        <textarea name={'text'} id={textdata.index} style={{ width: '100%'}} value={textdata.content} onChange={textAreaHandler}></textarea>
+                        <textarea name={'text'} id={textdata.index} style={{ resize: 'both'}} value={textdata.content} onChange={textAreaHandler}></textarea>
                     )
                 }
                 return(
@@ -139,7 +156,7 @@ const AboutWeekS = (props) => {
                     return(
                         <div style={{ backgroundImage: `url('${'d'}')` }} className="div_img_about_week" >
                             <img src={textdata.content} alt="" className="img_about_week" />
-                            <textarea name={'text'} id={textdata.index} style={{ width: '100%'}} value={textdata.content} onChange={textAreaHandler}></textarea>
+                            <textarea name={'text'} id={textdata.index} style={{ width: '100%', resize: 'both'}} value={textdata.content} onChange={textAreaHandler}></textarea>
                         </div>
                     )
                 }
@@ -234,6 +251,8 @@ const AboutWeekS = (props) => {
         }
     //             {Show()} перед шовтекст
     // const ShowText = () => data[props.week].map(EachText);
+    
+
     if (fetched) {
         return(
             <div className="changeWeek">
@@ -243,11 +262,12 @@ const AboutWeekS = (props) => {
                 {/* {ShowText()} */}
                 {EachText()}
                 {ShowButton()}
-                
+                {/* <button className="button_calculation" onClick={toggleEdit}>Сохранить</button> */}
                 <div className="flex_for_button mobile_back">
                     <button className="button_calculation" onClick={props.backToWeek}>Назад</button>
                 </div>
             </div>
+            
         )
     }else{
         return(
