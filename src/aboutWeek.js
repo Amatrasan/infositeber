@@ -29,6 +29,7 @@ const AboutWeekS = (props) => {
                 x[i].style.cssText = 'height:auto; padding:0';
                 x[i].style.cssText = '-moz-box-sizing:content-box';
                 x[i].style.cssText = 'height:' + x[i].scrollHeight + 'px';
+                x[i].style.cssText = 'min-height:' + x[i].scrollHeight + 'px';
             }
         }).catch((err) => {
             console.log(err)
@@ -99,6 +100,7 @@ const AboutWeekS = (props) => {
             // for box-sizing other than "content-box" use:
             el.style.cssText = '-moz-box-sizing:content-box';
             el.style.cssText = 'height:' + el.scrollHeight + 'px';
+            el.style.cssText = 'min-height:' + el.scrollHeight + 'px';
           },0);
         
         let t = [...data]
